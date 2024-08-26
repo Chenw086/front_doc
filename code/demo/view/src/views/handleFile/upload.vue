@@ -62,22 +62,18 @@ const handleExceed = (files) => {
 }
 
 // 计算 md5
+
 const calculateFileHash = (file) => {
+	const worker = new Worker('worker.js')
+
 	return new Promise((resolve, reject) => {
-		const fileReader = new FileReader()
-
-		fileReader.onload = (e) => {
-			const spark = new SparkMD5.ArrayBuffer()
-			spark.append(e.target.result)
-			const hash = spark.end()
-			resolve(hash)
+		worker.postMessage(file)
+		worker.onmessage = (event) => {
+			resolve(event.data)
 		}
-
-		fileReader.onerror = () => {
-			reject('文件读取出错')
+		worker.onerror = (error) => {
+			reject(error)
 		}
-
-		fileReader.readAsArrayBuffer(file)
 	})
 }
 
