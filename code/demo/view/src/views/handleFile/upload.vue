@@ -32,12 +32,12 @@
 import { ref, reactive, onMounted } from 'vue'
 import fileConfig from '../../config/file-config'
 import { genFileId } from 'element-plus'
-import SparkMD5 from 'spark-md5'
 import {
 	test,
 	uploadSmallFile,
 	uploadBigFile,
-	mergeFile
+	mergeFile,
+	queryChunk
 } from '../../api/handleFile'
 
 const isUpload = ref(false)
@@ -62,7 +62,6 @@ const handleExceed = (files) => {
 }
 
 // 计算 md5
-
 const calculateFileHash = (file) => {
 	const worker = new Worker('worker.js')
 
@@ -79,11 +78,12 @@ const calculateFileHash = (file) => {
 
 // 上传
 const submitUpload = async () => {
+	// file 信息
 	const file = fileList.value[0].raw
-	console.log(file)
 	if (!file) return
 	const size = fileConfig.SLICE_SIZE
 
+	// 如果小于切片值，则直接上传
 	if (file.size < size) {
 		const formData = new FormData()
 		formData.append('file', file)
@@ -91,25 +91,59 @@ const submitUpload = async () => {
 		await uploadSmallFile(formData)
 		return
 	}
+
 	upData.file = file
-	upData.fileChunkList = []
 	upData.total = Math.ceil(file.size / size)
 	upData.md5 = await calculateFileHash(file)
 
-	let cur = 0
-	while (cur < file.size) {
-		const chunk = file.slice(cur, cur + size)
-		upData.fileChunkList.push({ file: chunk })
-		cur += size
-	}
-	upData.fileArr = upData.fileChunkList.map(({ file: curFile }, index) => ({
-		chunk: curFile,
-		hash: file.name + '-' + index,
-		md5: upData.md5,
-		total: upData.total,
-		filename: upData.file.name
-	}))
+	// 进行切片,在这里进行已有分片的请求判断，如果没有指定文件则上传所有分片
+	// 如果没有指定分片，则补齐分片
+	const queryChunkData = await queryChunk({
+		filename: file.name,
+		md5: upData.md5
+	})
+	const haveSet = new Set(queryChunkData.chunkList)
 
+	const curSet = new Set()
+	for (let i = 0; i < upData.total; i++) {
+		curSet.add(`${file.name}-${i}`)
+	}
+
+	const shouldUploadSet = curSet.difference(haveSet)
+	console.log('需要继续传递的部分是：', shouldUploadSet)
+
+	shouldUploadSet.forEach((val) => {
+		const cur = parseInt(val.match(/\d+$/)[0], 10)
+		const currentIndex = cur * size
+		const chunk = file.slice(currentIndex, currentIndex + size)
+		upData.fileChunkList.push({ file: chunk })
+		upData.fileArr.push({
+			chunk: chunk,
+			hash: val,
+			md5: upData.md5,
+			total: upData.total,
+			filename: upData.file.name
+		})
+	})
+	// let cur = 0
+	// while (cur < file.size) {
+	// 	const chunk = file.slice(cur, cur + size)
+	// 	upData.fileChunkList.push({ file: chunk })
+	// 	cur += size
+	// }
+
+	// // 在每个切片里面存储信息，供后台拿到
+	// upData.fileArr = upData.fileChunkList.map(({ file: curFile }, index) => ({
+	// 	chunk: curFile,
+	// 	hash: file.name + '-' + index,
+	// 	md5: upData.md5,
+	// 	total: upData.total,
+	// 	filename: upData.file.name
+	// }))
+
+	console.log('查看所有数据详情', upData)
+
+	// 使用 Promise.all 来并发处理所有上传请求
 	const requestArr = upData.fileArr
 		.map((file) => {
 			const formData = new FormData()
@@ -124,12 +158,12 @@ const submitUpload = async () => {
 			return uploadBigFile(formData)
 		})
 
-	// 使用 Promise.all 来并发处理所有上传请求
 	try {
 		await Promise.all(requestArr)
 		console.log('文件全部上传成功，合并文件')
 	} catch (error) {
 		console.log('文件上传失败', error)
+		return
 	}
 
 	await mergeFile({

@@ -27,3 +27,7 @@ export function mergeFile(data) {
 export function getFileList() {
 	return get('/file/getFileList')
 }
+
+export function queryChunk(data) {
+	return post('/file/queryChunk', data)
+}

@@ -10,6 +10,7 @@ router.get('/', async (ctx, next) => {
 router.post('/uploadSmallFile', fileController.uploadSmallFile)
 router.post('/uploadBigFile', fileController.uploadBigFile)
 router.post('/mergeFile', fileController.mergeFile)
+router.post('/queryChunk', fileController.queryChunk)
 router.get('/getFileList', fileController.getFileList)
 router.get('/download', fileController.download)
 

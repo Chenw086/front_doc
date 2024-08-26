@@ -29,6 +29,7 @@ function calculateMD5(filePath) {
 
 		stream.on('end', () => {
 			const md5 = hash.digest('hex')
+			console.log('查看当前文件的 md5: ', md5)
 			resolve(md5)
 		})
 
@@ -39,7 +40,6 @@ function calculateMD5(filePath) {
 }
 
 // 获取目录下面的所有文件
-
 async function getFiles(dir) {
 	const readdir = promisify(fs.readdir)
 	const stat = promisify(fs.stat)
@@ -165,7 +165,6 @@ module.exports = {
 				const numB = parseInt(b.match(/\d+$/)[0], 10)
 				return numA - numB
 			})
-			console.log('查看文件排序', sortedFiles)
 
 			// 合并输出到指定位置
 			const outputFilePath = path.join(__dirname, `../upload/${bodyData.name}`)
@@ -223,6 +222,29 @@ module.exports = {
 				status: 500,
 				message: '合并过程中发生错误'
 			}
+		}
+	},
+
+	async queryChunk(ctx) {
+		const { filename, md5 } = ctx.request.body
+		const uploadFile = path.join(__dirname, `../upload/${filename}`)
+		const uploadDir = path.join(__dirname, `../upload/${md5}`)
+		if (fs.existsSync(uploadFile)) {
+			const selfMd5 = await calculateMD5(uploadFile)
+			;(selfMd5 === md5 &&
+				(ctx.body = {
+					status: 200,
+					isUploaded: 1,
+					chunkList: [],
+					isSame: 0
+				})) ||
+				(ctx.body = { status: 200, isUploaded: 0, chunkList: [], isSame: 1 })
+		} else if (fs.existsSync(uploadDir)) {
+			const readdir = promisify(fs.readdir)
+			const fileStat = await readdir(uploadDir)
+			ctx.body = { status: 200, isUploaded: 0, chunkList: fileStat, isSame: 0 }
+		} else {
+			ctx.body = { status: 200, isUploaded: 0, chunkList: [], isSame: 0 }
 		}
 	},
 
