@@ -1,6 +1,7 @@
 <template>
 	<div class="upload--wrapper">
 		<el-card shadow="never">
+			<!-- 文件选择按钮 -->
 			<el-upload
 				v-model:file-list="fileList"
 				ref="upload"
@@ -11,6 +12,8 @@
 				<template #trigger>
 					<el-button type="primary" :disabled="isUpload">选择文件</el-button>
 				</template>
+
+				<!-- 手动点击上传按钮 -->
 				<el-button
 					class="ml-3"
 					type="success"
@@ -30,25 +33,28 @@
 
 <script setup>
 import { ref, reactive, onMounted } from 'vue'
+// fileConfig
+// export default {
+// 	SLICE_SIZE: 10 * 1024 * 1024
+// }
 import fileConfig from '../../config/file-config'
 import { genFileId } from 'element-plus'
 import {
-	test,
 	uploadSmallFile,
 	uploadBigFile,
 	mergeFile,
 	queryChunk
 } from '../../api/handleFile'
 
-const isUpload = ref(false)
-const fileList = ref([])
+const isUpload = ref(false)  // 是否在上传中
+const fileList = ref([])  // 已选择文件列表
 
 const upData = reactive({
-	file: null,
-	fileChunkList: [],
-	fileArr: [],
-	total: 0,
-	md5: ''
+	file: null,  // 当前要上传文件 file 对象
+	fileChunkList: [],  // 分片 chunk 列表
+	fileArr: [],  // 包函信息的 chunk 列表（name、hash、total、md5）
+	total: 0,  // 多少个分片
+	md5: ''  // 文件 hash
 })
 
 const upload = ref()
@@ -81,10 +87,11 @@ const submitUpload = async () => {
 	// file 信息
 	const file = fileList.value[0].raw
 	if (!file) return
-	const size = fileConfig.SLICE_SIZE
+	const size = fileConfig.SLICE_SIZE  // 10M
+	const BASE_SIZE = fileConfig.BASE_SIZE  // 30M
 
 	// 如果小于切片值，则直接上传
-	if (file.size < size) {
+	if (file.size < BASE_SIZE) {
 		const formData = new FormData()
 		formData.append('file', file)
 		formData.append('filename', file.name)
@@ -171,10 +178,6 @@ const submitUpload = async () => {
 		name: upData.file.name
 	})
 }
-
-onMounted(async () => {
-	await test()
-})
 </script>
 
 <style lang="scss" scoped>
