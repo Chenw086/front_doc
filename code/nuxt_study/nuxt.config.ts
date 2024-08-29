@@ -18,10 +18,15 @@ export default defineNuxtConfig({
     }
   },
 
+  // 引入 element-plus
+  modules: ['@element-plus/nuxt'],
+
   // 运行时的一些全局变量
   runtimeConfig: {
     // 只能在服务端取到
     count: 1,
+
+    isServer: true,
 
     // 既能在服务端也能在客户端
     public: {
