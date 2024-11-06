@@ -20,7 +20,7 @@ app.use(
 			// 获取请求头中的 origin
 			const origin = ctx.header.origin
 			// 允许来自 http://localhost:5173 的请求
-			return origin === 'http://localhost:5173' ? origin : '*'
+			return origin === 'http://localhost:5174' ? origin : '*'
 		},
 		allowMethods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
 		allowHeaders: ['Content-Type', 'Authorization', 'Accept'],
