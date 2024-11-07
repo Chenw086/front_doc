@@ -64,7 +64,8 @@ export default defineConfig({
 					text: '基础',
 					collapsed: true,
 					items: [
-						{text: '安装', link: '/miniProgram/base/'}
+						{text: '基础', link: '/miniProgram/base/'},
+						{text: '配置文件', link: '/miniProgram/base/configFile'},
 					]
 				}
 			]
