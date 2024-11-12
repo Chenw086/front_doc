@@ -1,7 +1,108 @@
-<!--index.wxml-->
-<navigation-bar title="Weixin" back="{{false}}" color="black" background="#FFF"></navigation-bar>
-<scroll-view class="scrollarea" scroll-y type="list">
-  <view class="container">
-    Weixin
-  </view>
-</scroll-view>
+<!-- 轮播图区域 -->
+<view class="swiper">
+  <swiper
+    circular
+    indicator-dots
+    autoplay="true"
+    interval="2000"
+    indicator-color="#fff"
+    indicator-active-color="#f3514f"
+  >
+    <swiper-item>
+      <image src="../../assets/banner/banner-1.png" mode="scaleToFill" />
+    </swiper-item>
+    <swiper-item>
+      <image src="../../assets/banner/banner-2.png" mode="scaleToFill" />
+    </swiper-item>
+    <swiper-item>
+      <image src="../../assets/banner/banner-3.png" mode="scaleToFill" />
+    </swiper-item>
+  </swiper>
+</view>
+
+<!-- 公司信息 -->
+<view class="info">
+  <text> <text class="iconfont icon-gengduotese"></text> 同城配送</text>
+  <text> <text class="iconfont icon-time"></text> 行业龙头</text>
+  <text> <text class="iconfont icon-haoping"></text> 半小时送达</text>
+  <text> <text class="iconfont icon-navicon-chps"></text> 100% 好评</text>
+</view>
+
+<!-- 商品信息 -->
+<view class="good-nav">
+  <navigator url="/pages/list/list">
+    <image src="../../assets/category/cate-1.png" mode="" />
+    <text>鲜花玫瑰</text>
+  </navigator>
+  <navigator url="/pages/list/list">
+    <image src="../../assets/category/cate-1.png" mode="" />
+    <text>鲜花玫瑰</text>
+  </navigator>
+  <navigator url="/pages/list/list">
+    <image src="../../assets/category/cate-1.png" mode="" />
+    <text>鲜花玫瑰</text>
+  </navigator>
+  <navigator url="/pages/list/list">
+    <image src="../../assets/category/cate-1.png" mode="" />
+    <text>鲜花玫瑰</text>
+  </navigator>
+  <navigator url="/pages/list/list">
+    <image src="../../assets/category/cate-1.png" mode="" />
+    <text>鲜花玫瑰</text>
+  </navigator>
+</view>
+
+<!-- 推荐商品 -->
+<view class="good-hot">
+  <scroll-view scroll-x class="scroll-x">
+    <view class="good-container">
+      <view class="good-item">
+        <image src="../../assets/floor/1.png" mode="scaleToFill" />
+        <text>鲜花玫瑰</text>
+        <text>66</text>
+      </view>
+      <view class="good-item">
+        <image src="../../assets/floor/2.png" mode="scaleToFill" />
+        <text>鲜花玫瑰</text>
+        <text>66</text>
+      </view>
+      <view class="good-item">
+        <image src="../../assets/floor/3.png" mode="scaleToFill" />
+        <text>鲜花玫瑰</text>
+        <text>66</text>
+      </view>
+      <view class="good-item">
+        <image src="../../assets/floor/4.png" mode="scaleToFill" />
+        <text>鲜花玫瑰</text>
+        <text>66</text>
+      </view>
+      <view class="good-item">
+        <image src="../../assets/floor/5.png" mode="scaleToFill" />
+        <text>鲜花玫瑰</text>
+        <text>66</text>
+      </view>
+    </view>
+  </scroll-view>
+</view>
+
+<!-- navigation -->
+
+<!-- navigate -->
+<!-- <navigator url="/pages/list/list" open-type="navigate">跳转商品列表页面</navigator>
+<navigator url="/pages/cate/cate" open-type="navigate">跳转商品分类页面</navigator> -->
+
+<!-- navigate -->
+<!-- <navigator url="/pages/list/list" open-type="redirect">跳转商品列表页面</navigator>
+<navigator url="/pages/cate/cate" open-type="redirect">跳转商品分类页面</navigator> -->
+
+<!-- switchTab -->
+<!-- <navigator url="/pages/list/list" open-type="switchTab">跳转商品列表页面</navigator>
+<navigator url="/pages/cate/cate" open-type="switchTab">跳转商品分类页面</navigator> -->
+
+<!-- reLaunch -->
+<!-- <navigator url="/pages/list/list" open-type="reLaunch">跳转商品列表页面</navigator>
+<navigator url="/pages/cate/cate" open-type="reLaunch">跳转商品分类页面</navigator> -->
+
+
+<!-- backgound-image -->
+<!-- <view class="back-image"></view> -->

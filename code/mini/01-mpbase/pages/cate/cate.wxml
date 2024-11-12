@@ -1,2 +1,2 @@
-<!--pages/cate/cate.wxml-->
-<text>pages/cate/cate.wxml</text>
+<!-- 绘制一个盒子，让盒子高度占据屏幕的一半 -->
+<view class="box">陈伟测试</view>

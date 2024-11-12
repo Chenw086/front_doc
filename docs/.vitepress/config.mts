@@ -66,6 +66,9 @@ export default defineConfig({
 					items: [
 						{text: '基础', link: '/miniProgram/base/'},
 						{text: '配置文件', link: '/miniProgram/base/configFile'},
+						{text: '组建和样式', link: '/miniProgram/base/style'},
+						{text: '组件案例', link: '/miniProgram/base/demo1'},
+						{text: '事件', link: '/miniProgram/base/event'},
 					]
 				}
 			]

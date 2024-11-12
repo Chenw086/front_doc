@@ -1,0 +1,127 @@
+page {
+  overflow: auto;
+  background-color: #efefef !important;
+  display: flex;
+  flex-direction: column;
+  padding: 16rpx;
+  box-sizing: border-box;
+
+  > view {
+    &:nth-child(n + 2) {
+      margin-top: 16rpx;
+    }
+  }
+}
+
+// 轮播图样式
+.swiper {
+  border-radius: 16rpx;
+  overflow: hidden;
+  swiper {
+    height: 360rpx;
+    background-color: skyblue;
+  }
+
+  swiper-item {
+    image {
+      width: 100%;
+      height: 100%;
+    }
+    &:first-child {
+      background-color: lightpink;
+    }
+
+    &:last-child {
+      background-color: lightseagreen;
+    }
+  }
+}
+
+// 公司信息
+.info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16rpx;
+  border-radius: 10rpx;
+  font-size: 24rpx;
+  background-color: rgba($color: #fff, $alpha: 0.7);
+
+  > text {
+    display: flex;
+    align-items: center;
+
+    .iconfont {
+      font-size: 20rpx;
+    }
+  }
+}
+
+.good-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 20rpx;
+  padding: 20rpx 16rpx;
+  background-color: rgba($color: #fff, $alpha: 0.7);
+  border-radius: 10rpx;
+  overflow: hidden;
+
+  navigator {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    row-gap: 4px;
+    border-radius: 10rpx;
+
+    image {
+      width: 80rpx;
+      height: 80rpx;
+    }
+  }
+}
+
+.good-hot {
+  background-color: #fff;
+  padding: 16rpx;
+  box-sizing: border-box;
+  border-radius: 10rpx;
+  overflow: hidden;
+  .scroll-x {
+    width: 100%;
+    .good-container {
+      display: flex;
+      align-items: center;
+      column-gap: 20rpx;
+
+      .good-item {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        width: 320rpx;
+        height: 400rpx;
+        font-size: 24rpx;
+
+        image {
+          width: 320rpx;
+          height: 320rpx;
+          border-radius: 16rpx;
+        }
+
+        text {
+          &:nth-of-type(1) {
+            font-weight: bold;
+          }
+        }
+      }
+    }
+  }
+}
+
+.back-image {
+  height: 600rpx;
+
+  // 不生效
+  // url 里面是base64 与网络地址才会生效
+  // background-image: url(../../assets/category/cate-1.png);
+}
