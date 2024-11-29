@@ -1,0 +1,15 @@
+<!-- setData 的操作 -->
+<view class="wrapper"></view>
+<view>{{num}} </view>
+<button bind:tap="btnClick">更新 num</button>
+
+<button bind:tap="addValue">添加属性</button>
+<view>{{userInfo.name}}</view>
+
+<button bind:tap="delValue">删除属性</button>
+<view>{{userInfo.age}}</view>
+
+<!-- 列表的增删改查 -->
+<view class="wrapper"></view>
+<view wx:for="{{list}}" wx:key="index">{{item}}</view>
+<button type="primary" bind:tap="updateList">修改数组类型</button>

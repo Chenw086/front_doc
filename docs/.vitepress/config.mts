@@ -69,6 +69,7 @@ export default defineConfig({
 						{text: '组建和样式', link: '/miniProgram/base/style'},
 						{text: '组件案例', link: '/miniProgram/base/demo1'},
 						{text: '事件', link: '/miniProgram/base/event'},
+						{text: 'wxml', link: '/miniProgram/base/wxml'},
 					]
 				}
 			]

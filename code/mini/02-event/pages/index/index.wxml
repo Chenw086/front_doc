@@ -1,0 +1,12 @@
+<button bind:tap="handler" type="primary" size="mini">绑定事件</button>
+
+<input type="text" bindinput="getInput" name="" id="" />
+
+<!-- 事件冒泡 -->
+<view class="catch-test" bind:tap="parentHandler">
+  <!-- 这个会冒泡 -->
+  <!-- <button type="default" bind:tap="btnHandler">冒泡按钮</button> -->
+
+  <!-- 这个不会冒泡 -->
+  <button type="default" catch:tap="btnHandler">冒泡按钮</button>
+</view>

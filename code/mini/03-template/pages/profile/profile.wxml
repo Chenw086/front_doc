@@ -1,0 +1,5 @@
+<!-- 如果渲染的数组，item: 数组的每一项 index: 下标 -->
+<view wx:for="{{numList}}">{{item}} -- {{index}}</view>
+
+<!-- 如果渲染的是对象， item 对象属性的值 index：对象属性 -->
+<view wx:for="{{obj}}">{{item}} -- {{index}}</view>

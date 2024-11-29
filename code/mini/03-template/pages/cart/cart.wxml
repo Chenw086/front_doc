@@ -1,0 +1,7 @@
+<!-- 单向绑定，数据能影响页面，页面更新不会影响数据 -->
+<input type="text" value="{{value}}" />
+
+<!-- 双向数据绑定,数据能影响页面，页面更新会影响数据 -->
+<input type="text" model:value="{{value}}" />
+
+<checkbox model:checked="{{isChecked}}"/>

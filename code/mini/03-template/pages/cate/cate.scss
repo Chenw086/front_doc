@@ -1,0 +1,11 @@
+// 不能使用 px，px 是固定单位
+.box {
+  width: 375rpx;
+  background-color: red;
+}
+
+.wrapper {
+  border-top: 1px solid lightcoral;
+
+  margin-top: 100rpx;
+}

@@ -1,0 +1,3 @@
+<view mark:id="100" class="wrapper" bind:tap="btnHandler">
+  <button mark:test="chenwei" bind:tap="btnHandler" data-id="1" data-name="chenwei">按钮</button>
+</view>
